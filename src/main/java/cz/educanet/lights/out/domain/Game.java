@@ -1,5 +1,6 @@
 package cz.educanet.lights.out.domain;
 
+import cz.educanet.lights.out.data.Data;
 import cz.educanet.lights.out.domain.interfaces.ILightsOut;
 
 import java.util.Random;
@@ -7,8 +8,10 @@ import java.util.Random;
 public class Game implements ILightsOut {
     private int movesCount;
     private boolean[][] field;
+    private Data data;
 
     public Game(int size) {
+        this.data = new Data();
         this.movesCount = 0;
         this.field = new boolean[size][size];
         Random random = new Random();
@@ -50,6 +53,17 @@ public class Game implements ILightsOut {
 
 
         this.movesCount++;
+    }
+
+    @Override
+    public void saveGame() {
+        this.data.saveData(this.field);
+    }
+
+    @Override
+    public void loadGame() {
+        boolean[][] loadedField = this.data.loadData();
+        if(loadedField != null) this.field = loadedField;
     }
 
     private boolean isInField(int x, int y) {

@@ -23,4 +23,8 @@ public interface ILightsOut {
      * @param y
      */
     void makeMove(int x, int y);
+
+    void saveGame();
+
+    void loadGame();
 }
